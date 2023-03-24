@@ -87,7 +87,14 @@ Create firewall rule:
 ```
 gcloud compute firewall-rules create [rule-name] --target-tags [tags] --allow tcp:[port]
 
-gcloud compute firewall-rules create [rule-name] --direction=INGRESS --priority=1000 --network=[network-name] --action=ALLOW --rules=tcp:[port] --source-ranges=[cidr-range] --target-tags=[tag1,tag2]
+gcloud compute firewall-rules create [rule-name] \
+--direction=INGRESS \
+--priority=1000 \
+--network=[network-name] \
+--action=ALLOW \
+--rules=tcp:[port] \
+--source-ranges=[cidr-range] \
+--target-tags=[tag1,tag2]
 ```
 
 ### Load Balancer
@@ -109,19 +116,26 @@ gcloud compute http-health-checks create [check-name]
 Create a target pool:
 
 ```
-gcloud compute target-pools create [pool-name] --region [region] --http-health-check [check-name]
+gcloud compute target-pools create [pool-name] \
+--region [region] \
+--http-health-check [check-name]
 ```
 
 Add instances to the target pool:
 
 ```
-gcloud compute target-pools add-instances [pool-name] --instances [instance-name1,instance-name2]
+gcloud compute target-pools add-instances [pool-name] \
+--instances [instance-name1,instance-name2]
 ```
 
 Create a forwarding rule:
 
 ```
-gcloud compute forwarding-rules create [rule-name] --region [region] --ports [port] --address [ip-name] --target-pool [pool-name]
+gcloud compute forwarding-rules create [rule-name] \
+--region [region] \
+--ports [port] \
+--address [ip-name] \
+--target-pool [pool-name]
 ```
 
 View data about the forwarding rule and the IP address:
@@ -129,7 +143,9 @@ View data about the forwarding rule and the IP address:
 ```
 gcloud compute forwarding-rules describe [rule-name] --region [region]
 
-gcloud compute forwarding-rules describe [rule-name] --region [region] --format="json" | jq -r .IPAddress
+gcloud compute forwarding-rules describe [rule-name] \
+--region [region] \
+--format="json" | jq -r .IPAddress
 ```
 
 #### HTTP(S) Load Balancer
@@ -137,19 +153,40 @@ gcloud compute forwarding-rules describe [rule-name] --region [region] --format=
 Create a compute instance template:
 
 ```
-gcloud compute instance-templates create [template-name] --region [region] --network [network] --subnet [subnet] --tags [tag1,tag2] --machine-type [type] --image-family debian-11 --image-project debian-cloud --metadata=startup-script='[startup-script-content]'
+gcloud compute instance-templates create [template-name] \
+--region [region] \
+--network [network] \
+--subnet [network] \
+--tags [tag1,tag2] \
+--machine-type [type] \
+--image-family debian-11 \
+--image-project debian-cloud \
+--metadata=startup-script='[startup-script-content]'
 ```
 
-Create a managed instance group from the template:
+Create a managed instance group from the template and set the named ports:
 
 ```
-gcloud compute instance-groups managed create [group-name] --template [template-name] --size [size] --zone [zone]
+gcloud compute instance-groups managed create [group-name] \
+--template [template-name] \
+--size [size] \
+--zone [zone]
+
+gcloud compute instance-groups managed set-named-ports [group-name] \
+--named-ports [name:port] \
+--zone [zone]
 ```
 
 Create a firewall rule:
 
 ```
-gcloud compute firewall-rules create [rule-name] --network [network] --action=allow --direction=ingress --source-ranges=130.211.0.0/22,35.191.0.0/16 --target-tags=[tags] --rules=tcp:80
+gcloud compute firewall-rules create [rule-name] \
+--network [network] \
+--action=allow \
+--direction=ingress \
+--source-ranges=130.211.0.0/22,35.191.0.0/16 \
+--target-tags=[tags] \
+--rules=tcp:80
 ```
 
 Create and view a global static external IP address:
@@ -169,13 +206,20 @@ gcloud compute health-checks create http [check-name] --port 80
 Create a backend service:
 
 ```
-gcloud compute backend-services create [service-name] --protocol=HTTP --port-name=http --health-checks=[check-name] --global
+gcloud compute backend-services create [service-name] \
+--protocol=HTTP \
+--port-name=http \
+--health-checks=[check-name] \
+--global
 ```
 
 Add the instance group as the backend to the backend service:
 
 ```
-gcloud compute backend-services add-backend [service-name] --instance-group=[group-name] --instance-group-zone=[zone] --global
+gcloud compute backend-services add-backend [service-name] \
+--instance-group=[group-name] \
+--instance-group-zone=[zone] \
+--global
 ```
 
 Create a URL map to route requests from the load balancer to the backend service:
@@ -193,7 +237,11 @@ gcloud compute target-http-proxies create [proxy-name] --url-map [map-name]
 Create a forwarding rule:
 
 ```
-gcloud compute forwarding-rules create [rule-name] --address [ip-name] --global --target-http-proxy=[proxy-name] --ports=80
+gcloud compute forwarding-rules create [rule-name] \
+--address [ip-name] \
+--global \
+--target-http-proxy=[proxy-name] \
+--ports=80
 ```
 
 ## Kubernetes Engine
