@@ -24,5 +24,5 @@ kubectl create deployment [deployment-name] --image=gcr.io/google-samples/hello-
 Expose a deployment:
 
 ```
-kubectl expose deployment [deployment-name] --type=LoadBalancer --port [port]
+kubectl expose deployment [deployment-name] --type=LoadBalancer --port=[port]
 ```
