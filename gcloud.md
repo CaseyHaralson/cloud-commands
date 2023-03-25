@@ -2,6 +2,18 @@
 
 https://cloud.google.com/sdk/gcloud/reference
 
+## New Shell
+
+Open a new Cloud Shell: https://shell.cloud.google.com/?show=terminal
+
+List and then set the project for the shell:
+
+```
+gcloud projects list
+
+gcloud config set project [project-id]
+```
+
 ## Variables
 
 Set and use a linux variable:
@@ -46,6 +58,67 @@ gcloud config set compute/region [region]
 gcloud config set compute/zone [zone]
 ```
 
+## VPC
+
+List the VPC networks:
+
+```
+gcloud compute networks list
+```
+
+List the VPC subnets:
+
+```
+gcloud compute networks subnets list --sort-by=NETWORK
+gcloud compute networks subnets list --network=[vpc-name]
+```
+
+Create a VPC:
+
+```
+gcloud compute networks create [vpc-name]
+gcloud compute networks create [vpc-name] --subnet-mode=custom
+```
+
+Create a subnet:
+
+```
+gcloud compute networks subnets create [subnet-name] \
+--network=[vpc-name] \
+--region=[region] \
+--range=[cidr-range]
+```
+
+### Firewall
+
+List and filter firewall rules:
+
+```
+gcloud compute firewall-rules list --sort-by=NETWORK
+gcloud compute firewall-rules list --filter="NETWORK:'[network-name]'"
+gcloud compute firewall-rules list --filter="NETWORK:'[network-name]' AND ALLOW:'icmp'"
+```
+
+Create firewall rule:
+
+```
+gcloud compute firewall-rules create [rule-name] \
+--allow=[tcp:[port],tcp:[port2],[protocol]]
+
+gcloud compute firewall-rules create [rule-name] \
+--target-tags=[tags] \
+--allow=[tcp:[port],tcp:[port2],[protocol]]
+
+gcloud compute firewall-rules create [rule-name] \
+--direction=INGRESS \
+--priority=1000 \
+--network=[network-name] \
+--action=ALLOW \
+--rules=[tcp:[port],tcp:[port2],[protocol]] \
+--source-ranges=[cidr-range] \
+--target-tags=[tag1,tag2]
+```
+
 ## Compute
 
 List the compute instances:
@@ -58,6 +131,11 @@ Create a new compute instance:
 
 ```
 gcloud compute instances create [instance-name] --machine-type=[type] --zone=[zone]
+
+gcloud compute instances create [instance-name] \
+--machine-type=[type] \
+--zone=[zone] \
+--subnet=[subnet-name]
 ```
 
 Add tags:
@@ -82,31 +160,6 @@ curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
 sudo bash add-google-cloud-ops-agent-repo.sh --also-install
 ```
 
-### Firewall
-
-List and filter firewall rules:
-
-```
-gcloud compute firewall-rules list
-gcloud compute firewall-rules list --filter="NETWORK:'[network-name]'"
-gcloud compute firewall-rules list --filter="NETWORK:'[network-name]' AND ALLOW:'icmp'"
-```
-
-Create firewall rule:
-
-```
-gcloud compute firewall-rules create [rule-name] --target-tags=[tags] --allow=tcp:[port]
-
-gcloud compute firewall-rules create [rule-name] \
---direction=INGRESS \
---priority=1000 \
---network=[network-name] \
---action=ALLOW \
---rules=tcp:[port] \
---source-ranges=[cidr-range] \
---target-tags=[tag1,tag2]
-```
-
 ### Load Balancer
 
 #### Regional Load Balancer
@@ -127,7 +180,7 @@ Create a target pool:
 
 ```
 gcloud compute target-pools create [pool-name] \
---region=region] \
+--region=[region] \
 --http-health-check=[check-name]
 ```
 
@@ -323,7 +376,7 @@ gsutil rm gs://[bucket-name]/[file]
 
 ## Functions
 
-First, create a storage bucket to store the function code. Second, create a directory with the function source code in it.
+First, create a storage bucket to store the function code. Second, create a local directory with the function source code in it and change to that directory.
 
 Deploy the current directory as a function that will trigger from a Pub/Sub topic and then test the function:
 
@@ -399,4 +452,12 @@ Pull a message from a subscription:
 gcloud pubsub subscriptions pull [subscription-name]
 gcloud pubsub subscriptions pull [subscription-name] --auto-ack
 gcloud pubsub subscriptions pull [subscription-name] --auto-ack --limit=3
+```
+
+### Cloud SQL
+
+Connect to a server:
+
+```
+gcloud sql connect [server-name] --user=[user] --quiet
 ```
