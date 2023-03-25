@@ -72,6 +72,16 @@ SSH into a compute instance:
 gcloud compute ssh [instance-name] --zone=[zone]
 ```
 
+### Monitoring
+
+Download and install the monitoring agent:
+
+```
+curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
+
+sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+```
+
 ### Firewall
 
 List and filter firewall rules:
@@ -173,7 +183,7 @@ gcloud compute instance-groups managed create [group-name] \
 --zone=[zone]
 
 gcloud compute instance-groups managed set-named-ports [group-name] \
---named-ports=[name:port] \
+--named-ports=http:80 \
 --zone=[zone]
 ```
 
@@ -246,6 +256,8 @@ gcloud compute forwarding-rules create [rule-name] \
 
 ## Kubernetes Engine
 
+kubectl commands: [kubectl.md](./kubectl.md)
+
 Create a cluster:
 
 ```
@@ -262,4 +274,129 @@ Delete a cluster:
 
 ```
 gcloud container clusters delete [cluster-name]
+```
+
+## Storage
+
+https://cloud.google.com/storage/docs/gsutil
+
+Create a new bucket:
+
+```
+gsutil mb gs://[bucket-name]
+```
+
+List the contents of a bucket:
+
+```
+gsutil ls gs://[bucket-name]
+```
+
+Copy a file to a bucket:
+
+```
+gsutil cp [file] gs://[bucket-name]
+gsutil cp [file] gs://[bucket-name]/[folder]
+```
+
+Download a file or directory from a bucket:
+
+```
+gsutil cp gs://[bucket-name]/[file] .
+
+gsutil cp -r gs://[bucket-name]/[folder] .
+```
+
+Make a file publicly accessible or remove public access through an ACL:
+
+```
+gsutil acl ch -u AllUsers:R gs://[bucket-name]/[file]
+
+gsutil acl ch -d AllUsers gs://[bucket-name]/[file]
+```
+
+Remove a file from a bucket:
+
+```
+gsutil rm gs://[bucket-name]/[file]
+```
+
+## Functions
+
+First, create a storage bucket to store the function code. Second, create a directory with the function source code in it.
+
+Deploy the current directory as a function that will trigger from a Pub/Sub topic and then test the function:
+
+```
+gcloud functions deploy [function-name] \
+--stage-bucket=[bucket-name] \
+--trigger-topic=[topic-name]
+--runtime=[code-runtime]
+
+DATA=$(printf 'Hello World!'|base64) && gcloud functions call [function-name] \
+--data='{"data":"'$DATA'"}'
+```
+
+View the details about a function:
+
+```
+gcloud functions describe [function-name]
+```
+
+View the logs from a function:
+
+```
+gcloud functions logs read [function-name]
+```
+
+## Pub/Sub
+
+List the existing topics:
+
+```
+gcloud pubsub topics list
+```
+
+Create a topic:
+
+```
+gcloud pubsub topics create [topic-name]
+```
+
+Delete a topic:
+
+```
+gcloud pubsub topics delete [topic-name]
+```
+
+List the subscriptions to a topic:
+
+```
+gcloud pubsub topics list-subscriptions [topic-name]
+```
+
+Create a subscription to a topic:
+
+```
+gcloud pubsub subscriptions create --topic=[topic-name] [subscription-name]
+```
+
+Delete a subscription to a topic:
+
+```
+gcloud pubsub subscriptions delete [subscription-name]
+```
+
+Publish a message to a topic:
+
+```
+gcloud pubsub topics publish [topic-name] --message="[message]"
+```
+
+Pull a message from a subscription:
+
+```
+gcloud pubsub subscriptions pull [subscription-name]
+gcloud pubsub subscriptions pull [subscription-name] --auto-ack
+gcloud pubsub subscriptions pull [subscription-name] --auto-ack --limit=3
 ```
