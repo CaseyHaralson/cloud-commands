@@ -314,7 +314,15 @@ kubectl commands: [kubectl.md](./kubectl.md)
 Create a cluster:
 
 ```
-gcloud container clusters create --machine-type=[type] --zone=[zone] [cluster-name]
+gcloud container clusters create [cluster-name] --machine-type=[type] --zone=[zone]
+gcloud container clusters create [cluster-name] --machine-type=[type] --region=[region]
+
+gcloud container clusters create [cluster-name] \
+--machine-type=[type] \
+--zone=[zone] \
+--num-nodes=[num] \
+--network=[network] \
+--subnetwork=[subnetwork]
 ```
 
 Get the cluster authentication credentials:
@@ -454,7 +462,7 @@ gcloud pubsub subscriptions pull [subscription-name] --auto-ack
 gcloud pubsub subscriptions pull [subscription-name] --auto-ack --limit=3
 ```
 
-### Cloud SQL
+## Cloud SQL
 
 Connect to a server:
 

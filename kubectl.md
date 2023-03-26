@@ -13,6 +13,10 @@ kubectl get events
 
 kubectl logs [pod-name]
 kubectl logs -f [pod-name]
+
+kubectl explain deployment
+kubectl explain deployment.metadata.name
+kubectl explain deployment --recursive
 ```
 
 ## Yaml Config Files
@@ -21,6 +25,24 @@ Create something from a configuration file:
 
 ```
 kubectl create -f [yaml-file]
+```
+
+## Volumes
+
+Create a secret volume from a folder/file:
+
+```
+kubectl create secret generic [volume-name] --from-file [folder]/
+kubectl create secret generic [volume-name] --from-file [folder/file]
+kubectl create secret generic [volume-name] --from-file [file]
+```
+
+Create a configmap volume from a folder/file:
+
+```
+kubectl create configmap [volume-name] --from-file [folder]/
+kubectl create configmap [volume-name] --from-file [folder/file]
+kubectl create configmap [volume-name] --from-file [file]
 ```
 
 ## Deployments
@@ -47,6 +69,23 @@ Scale a deployment:
 kubectl scale deployment [deployment-name] --replicas=[num]
 ```
 
+Edit a deployment, pause a rollout, resume a rollout, rollback a rollout, and get the status of the deployment and pods:
+
+```
+kubectl edit deployment [deployment-name]
+
+kubectl rollout pause deployment/[deployment-name]
+
+kubectl rollout resume deployment/[deployment-name]
+
+kubectl rollout undo deployment/[deployment-name]
+
+kubectl rollout status deployment/[deployment-name]
+kubectl rollout history deployment/[deployment-name]
+
+kubectl get pods -o jsonpath --template='{range .items[*]}{.metadata.name}{"\t"}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
+```
+
 ## Pods
 
 List the pods or get more information about a pod:
@@ -71,20 +110,6 @@ Connect to an interactive shell in a pod:
 
 ```
 kubectl exec [pod-name] --stdin --tty -c [container-name] -- /bin/sh
-```
-
-## Volumes
-
-Create a secret volume from a folder/file:
-
-```
-kubectl create secret generic [volume-name] --from-file [folder/file]
-```
-
-Create a configmap volume from a folder/file:
-
-```
-kubectl create configmap [volume-name] --from-file [folder/file]
 ```
 
 ## Services
