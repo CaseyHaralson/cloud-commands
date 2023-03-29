@@ -6,7 +6,7 @@ provider "google" {
 terraform {
   required_providers {
     google = {
-      sousource = "hashicorp/google"
+      source = "hashicorp/google"
     }
   }
 }
