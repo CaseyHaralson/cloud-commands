@@ -10,7 +10,7 @@ terraform {
     }
   }
   backend "gcs" {
-    bucket = var.backend_bucket_name
+    bucket = "" # this needs to be filled out manually
     prefix = "terraform/state"
   }
 }
@@ -29,6 +29,6 @@ module "instances" {
 
   zone        = var.instances_zone
   network     = "${module.network.network_name}"
-  subnetwork1 = "${module.network.subnets[0].subnet_name}"
-  subnetwork2 = "${module.network.subnets[1].subnet_name}"
+  subnetwork1 = "${module.network.subnets_names[0]}"
+  subnetwork2 = "${module.network.subnets_names[1]}"
 }
