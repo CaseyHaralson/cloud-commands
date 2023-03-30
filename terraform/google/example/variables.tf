@@ -10,12 +10,6 @@ variable "region" {
   # default     = ""
 }
 
-# variable "backend_bucket_name" {
-#   description = "The name of the backend storage bucket"
-#   type        = string
-#   # default     = ""
-# }
-
 variable "network_name" {
   description = "The name of the vpc network"
   type        = string
