@@ -2,9 +2,46 @@
 
 https://cloud.google.com/sdk/gcloud/reference
 
-## New Shell
+## Install gcloud SDK
 
-Open a new Cloud Shell: https://shell.cloud.google.com/?show=terminal
+Install instructions: https://cloud.google.com/sdk/docs/install
+
+Authorization instructions: https://cloud.google.com/sdk/docs/authorizing
+
+### Rapid Install
+
+If you are on linux and have python installed, you can install the cloud SDK to your local user's account by running the following and accepting the defaults (by pressing ENTER when asked):
+
+```
+curl https://sdk.cloud.google.com | bash
+```
+
+Then reload the shell:
+
+```
+exec -l $SHELL
+```
+
+Authenticate with or without a browser on the computer:
+
+```
+gcloud auth login
+gcloud auth login --no-launch-browser
+```
+
+### Installed Components
+
+Check for installed components and install a new component:
+
+```
+gcloud components list
+
+gcloud components install [component]
+```
+
+## New Cloud Shell
+
+Open a new Cloud Shell with gcloud SDK already installed: https://shell.cloud.google.com/?show=terminal
 
 List and then set the project for the shell:
 
@@ -29,6 +66,19 @@ Check the list of authorized accounts:
 
 ```
 gcloud auth list
+```
+
+Authorize against another account (with or without a browser on the computer), then select to create a new configuration after running the command:
+
+```
+gcloud init
+gcloud init --no-launch-browser
+```
+
+Switch between different configured auth profiles:
+
+```
+gcloud config configurations activate [profile-name]
 ```
 
 ## Config
@@ -56,6 +106,42 @@ Set the compute region & zone:
 ```
 gcloud config set compute/region [region]
 gcloud config set compute/zone [zone]
+```
+
+View the configuration file:
+
+```
+cat ~/.config/gcloud/configurations/config_default
+```
+
+## IAM
+
+Create a new role at the project level:
+
+```
+gcloud iam roles create [role-name] \
+--project=[project-id] \
+--permissions="[permission1,permission2]"
+```
+
+Add a new role to a user at the project level:
+
+```
+gcloud projects add-iam-policy-binding [project-id] --member=user:[user-id] --role=[role]
+```
+
+Create a service account:
+
+```
+gcloud iam service-accounts create [service-account-name] --display-name=[display-name]
+```
+
+Add a new role to a service account at the project level:
+
+```
+gcloud projects add-iam-policy-binding [project-id] \
+--member=serviceAccount:[service-account-id] \
+--role=[role]
 ```
 
 ## VPC
