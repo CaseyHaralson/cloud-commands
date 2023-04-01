@@ -1,6 +1,6 @@
 # Google Cloud Commands
 
-https://cloud.google.com/sdk/gcloud/reference
+Command reference: https://cloud.google.com/sdk/gcloud/reference
 
 ## Install gcloud SDK
 
@@ -519,7 +519,7 @@ gcloud compute backend-services update [backend-service-name] --enable-cdn --glo
 
 ## Kubernetes Engine
 
-kubectl commands: [kubectl.md](./kubectl.md)
+kubernetes command reference: [kubectl.md](./kubectl.md)
 
 Create a cluster:
 
@@ -549,7 +549,7 @@ gcloud container clusters delete [cluster-name]
 
 ## Storage
 
-https://cloud.google.com/storage/docs/gsutil
+gsutil command reference: https://cloud.google.com/storage/docs/gsutil
 
 Create a new bucket:
 

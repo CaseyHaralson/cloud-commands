@@ -1,6 +1,6 @@
 # Git
 
-https://git-scm.com/docs
+Command reference: https://git-scm.com/docs
 
 Book: https://git-scm.com/book/en/v2
 

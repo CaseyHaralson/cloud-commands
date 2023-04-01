@@ -1,6 +1,6 @@
 # Terraform
 
-https://developer.hashicorp.com/terraform/cli/commands
+Command reference: https://developer.hashicorp.com/terraform/cli/commands
 
 Terraform Registry: https://registry.terraform.io/
 

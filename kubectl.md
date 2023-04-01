@@ -1,6 +1,6 @@
 # Kubernetes Commands
 
-https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
+Command reference: https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
 
 ## Info
 
