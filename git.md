@@ -31,7 +31,7 @@ git config user.name "[name]"
 git config user.email "[email]"
 ```
 
-## New Repo
+## New Repo & Remotes
 
 Initialize the current directory into a new repo:
 
@@ -46,9 +46,28 @@ git clone [repo-url]
 git clone [repo-url] [new-folder-name]
 ```
 
+View your remotes or add another remote:
+
+```
+git remote
+git remote -v
+
+git remote add [short-name] [repo-url]
+```
+
+Rename a remote or remove a remote:
+
+```
+git remote rename [old-short-name] [new-short-name]
+
+git remote remove [short-name]
+```
+
 ## Changes
 
-Get the repo's current status:
+### Stage Changes
+
+Get the local repo's current status:
 
 ```
 git status
@@ -56,20 +75,22 @@ git status
 git status -s
 ```
 
-Add a file/folder/all to the staging area:
+Add to the staging area:
 
 ```
 git add [file]
 git add [folder]
 git add .
+git add [blob]
 ```
 
-Remove a file/folder/all from the staging area:
+Remove from the staging area (**WARNING**: make sure to include the "--staged" flag because this command outside of the staging area reverts changes):
 
 ```
 git restore --staged [file]
 git restore --staged [folder]
 git restore --staged .
+git restore --staged [blob]
 ```
 
 View unstaged or staged file content changes:
@@ -82,11 +103,51 @@ git diff --staged
 git diff --staged -- [file/blob]
 ```
 
+Revert any changes to the selected items (**WARNING**: completely removes the changes from your local):
+
+```
+git restore [file]
+git restore [folder]
+git restore .
+git restore [blob]
+```
+
+### Commit Changes
+
 Commit the staged changes:
 
 ```
 git commit
 git commit -m "[message]"
+```
+
+You can change the most recent commit (**WARNING**: only if you haven't pushed the change to a remote) and include any staged changes with a new commit message. If there are no changes in the staging area it will just change the last commit message:
+
+```
+git commit --amend
+git commit --amend -m "[message]"
+```
+
+### Sync Changes
+
+Get the most recent data from a remote:
+
+```
+git fetch
+git fetch [remote-short-name]
+```
+
+View current information about a remote like the url, branches, and sync status:
+
+```
+git remote show [remote-short-name]
+```
+
+Push changes to a remote:
+
+```
+git push
+git push [remote-short-name] [branch]
 ```
 
 ## History
