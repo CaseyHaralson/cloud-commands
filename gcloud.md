@@ -116,6 +116,8 @@ cat ~/.config/gcloud/configurations/config_default
 
 ## IAM
 
+IAM permissions reference: https://cloud.google.com/iam/docs/permissions-reference
+
 Create a new role at the project level:
 
 ```
