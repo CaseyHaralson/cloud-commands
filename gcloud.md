@@ -224,6 +224,11 @@ gcloud compute instances create [instance-name] \
 --machine-type=[type] \
 --zone=[zone] \
 --subnet=[subnet-name]
+
+gcloud compute instances create [instance-name] \
+--machine-type=[type] \
+--tags=[tag1,tag2] \
+--metadata=startup-script-url=[url]
 ```
 
 Add tags:
@@ -238,6 +243,16 @@ SSH into a compute instance:
 gcloud compute ssh [instance-name] --zone=[zone]
 ```
 
+Stop, start, or delete a compute instance:
+
+```
+gcloud compute instances stop [instance-name]
+
+gcloud compute instances start [instance-name]
+
+gcloud compute instances delete [instance-name]
+```
+
 ### Monitoring
 
 Download and install the monitoring agent:
@@ -246,6 +261,108 @@ Download and install the monitoring agent:
 curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
 
 sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+```
+
+### Managed Instance Group
+
+List the instance templates and instance groups:
+
+```
+gcloud compute instance-templates list
+
+gcloud compute instance-groups list-instances
+gcloud compute instance-groups list-instances [group-name]
+```
+
+Create an instance template from a stopped, source compute instance:
+
+```
+gcloud compute instance-templates create [template-name] --source-instance=[instance-name]
+```
+
+Create an instance template from a definition:
+
+```
+gcloud compute instance-templates create [template-name] \
+--region=[region] \
+--network=[network] \
+--subnet=[network] \
+--tags=[tag1,tag2] \
+--machine-type=[type] \
+--image-family=debian-11 \
+--image-project=debian-cloud \
+--metadata=startup-script='[startup-script-content]'
+```
+
+Create a managed instance group from a template:
+
+```
+gcloud compute instance-groups managed create [group-name] \
+--base-instance-name=[instance-name-prefix] \
+--size=[size] \
+--template=[template-name]
+```
+
+Set any named ports for the instance group:
+
+```
+gcloud compute instance-groups set-named-ports [group-name] \
+--named-ports=[name1:port1,name2:port2]
+```
+
+Create an autohealing health check for an instance group:
+
+```
+gcloud compute health-checks create http [check-name] \
+--port=[port] \
+--request-path=[request-path] \
+--check-interval=30s \
+--healthy-threshold=1 \
+--timeout=10s \
+--unhealthy-threshold=3
+```
+
+Apply the health check to the instance group:
+
+```
+gcloud compute instance-groups managed update [group-name] \
+--health-check=[check-name] \
+--initial-delay=300
+```
+
+Create a firewall rule to allow the health checks:
+
+```
+gcloud compute firewall-rules create [rule-name] \
+--allow=tcp:[port-range] \
+--source-ranges=130.211.0.0/22,35.191.0.0/16 \
+--network=[network]
+```
+
+Set the autoscaling policy on an instance group:
+
+```
+gcloud compute instance-groups managed set-autoscaling [group-name] \
+--max-num-replicas=[num] \
+--target-load-balancing-utilization=0.60
+```
+
+#### Updates
+
+Update a managed instance group with a new template:
+
+```
+gcloud compute instance-groups managed rolling-action start-update [group-name] \
+--version=template=[template-name]
+```
+
+Apply a rolling update to the managed instance group (like if they reference a startup script and the startup script changed), and for development set the max unavailable to 100 so they all replace immediately:
+
+```
+gcloud compute instance-groups managed rolling-action replace [group-name]
+
+gcloud compute instance-groups managed rolling-action replace [group-name] \
+--max-unavailable=100%
 ```
 
 ### Load Balancer
@@ -261,7 +378,7 @@ gcloud compute addresses create [ip-name] --region=[region]
 Create a health check resource:
 
 ```
-gcloud compute http-health-checks create [check-name]
+gcloud compute health-checks create http [check-name]
 ```
 
 Create a target pool:
@@ -269,7 +386,7 @@ Create a target pool:
 ```
 gcloud compute target-pools create [pool-name] \
 --region=[region] \
---http-health-check=[check-name]
+--health-check=[check-name]
 ```
 
 Add instances to the target pool:
@@ -301,34 +418,19 @@ gcloud compute forwarding-rules describe [rule-name] \
 
 #### HTTP(S) Load Balancer
 
-Create a compute instance template:
+First, create a managed instance group and set any needed named ports: [manged instance groups](#managed-instance-group)
+
+Create a health check for load balancing:
 
 ```
-gcloud compute instance-templates create [template-name] \
---region=[region] \
---network=[network] \
---subnet=[network] \
---tags=[tag1,tag2] \
---machine-type=[type] \
---image-family=debian-11 \
---image-project=debian-cloud \
---metadata=startup-script='[startup-script-content]'
+gcloud compute health-checks create http [check-name] --port=80
+
+gcloud compute health-checks create http [check-name] \
+--request-path=[api-path] \
+--port=[port]
 ```
 
-Create a managed instance group from the template and set the named ports:
-
-```
-gcloud compute instance-groups managed create [group-name] \
---template=[template-name] \
---size=[size] \
---zone=[zone]
-
-gcloud compute instance-groups managed set-named-ports [group-name] \
---named-ports=http:80 \
---zone=[zone]
-```
-
-Create a firewall rule:
+Create a firewall rule if needed:
 
 ```
 gcloud compute firewall-rules create [rule-name] \
@@ -340,26 +442,12 @@ gcloud compute firewall-rules create [rule-name] \
 --rules=tcp:80
 ```
 
-Create and view a global static external IP address:
-
-```
-gcloud compute addresses create [ip-name] --ip-version=IPV4 --global
-
-gcloud compute addresses describe [ip-name] --format="get(address)" --global
-```
-
-Create a health check:
-
-```
-gcloud compute health-checks create http [check-name] --port=80
-```
-
 Create a backend service:
 
 ```
 gcloud compute backend-services create [service-name] \
 --protocol=HTTP \
---port-name=http \
+--port-name=[named-port] \
 --health-checks=[check-name] \
 --global
 ```
@@ -379,13 +467,30 @@ Create a URL map to route requests from the load balancer to the backend service
 gcloud compute url-maps create [map-name] --default-service=[service-name]
 ```
 
+Update a URL map to route requests to non-default backend services:
+
+```
+gcloud compute url-maps add-path-matcher [map-name] \
+--default-service=[default-service-name] \
+--path-matcher-name=[matcher-name] \
+--path-rules="[api-path1=service-name1,api-path2=service-name2]"
+```
+
 Create a HTTP proxy to route requests to the URL map:
 
 ```
 gcloud compute target-http-proxies create [proxy-name] --url-map=[map-name]
 ```
 
-Create a forwarding rule:
+Create a global static external IP address if you don't want the forwarding-rule to create it and then view the IP address:
+
+```
+gcloud compute addresses create [ip-name] --ip-version=IPV4 --global
+
+gcloud compute addresses describe [ip-name] --format="get(address)" --global
+```
+
+Create a forwarding rule with or without a previously created IP address:
 
 ```
 gcloud compute forwarding-rules create [rule-name] \
@@ -393,6 +498,23 @@ gcloud compute forwarding-rules create [rule-name] \
 --global \
 --target-http-proxy=[proxy-name] \
 --ports=80
+
+gcloud compute forwarding-rules create [rule-name] \
+--global \
+--target-http-proxy=[proxy-name] \
+--ports=80
+```
+
+View the IP addresses of any forwarding rules:
+
+```
+gcloud compute forwarding-rules list --global
+```
+
+Enable a CDN:
+
+```
+gcloud compute backend-services update [backend-service-name] --enable-cdn --global
 ```
 
 ## Kubernetes Engine
