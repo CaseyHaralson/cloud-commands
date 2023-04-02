@@ -31,6 +31,22 @@ git config user.name "[name]"
 git config user.email "[email]"
 ```
 
+## Alias Commands
+
+Create an alias git command that runs the configured command:
+
+```
+git config --global alias.[alias-command] '[command-string]'
+```
+
+For example, to see the last commit you can create an alias for the command and then call the alias instead of typing out the original command
+
+```
+git config --global alias.last 'log -l HEAD'
+
+git last
+```
+
 ## New Repo & Remotes
 
 Initialize the current directory into a new repo:
@@ -207,4 +223,54 @@ Filter the history to changes against a particular string:
 
 ```
 git log -S [search-string]
+```
+
+## Tags
+
+List the tags you have locally:
+
+```
+git tag
+git tag -l "[pattern]"
+```
+
+Check out a tag to view the code at that time (makes a detached head, so you can't make changes), or check out the tag to a new branch so you can make changes:
+
+```
+git checkout [tag]
+
+git checkout -b [new-branch-name] [tag]
+```
+
+Create an annotated tag, which contains who made the tag, when, and a message:
+
+```
+git tag -a [tag] -m "[message]"
+git tag -a [tag] -m "[message]" [commit-id]
+```
+
+Create a lightweight tag:
+
+```
+git tag [tag]
+git tag [tag] [commit-id]
+```
+
+Push a tag or all local tags to a remote:
+
+```
+git push [tag]
+git push [remote-short-name] [tag]
+
+git push --tags
+git push [remote-short-name] --tags
+```
+
+Delete a tag locally or from a remote:
+
+```
+git tag -d [tag]
+
+git push --delete [tag]
+git push [remote-short-name] --delete [tag]
 ```
