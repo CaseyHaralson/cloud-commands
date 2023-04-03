@@ -36,10 +36,10 @@ git config user.email "[email]"
 Create an alias git command that runs the configured command:
 
 ```
-git config --global alias.[alias-command] '[command-string]'
+git config --global alias.[alias-command] '[git-command-string]'
 ```
 
-For example, to see the last commit you can create an alias for the command and then call the alias instead of typing out the original command
+For example, to see the last commit you can create an alias for the command and then call the alias instead of typing out the original command:
 
 ```
 git config --global alias.last 'log -l HEAD'

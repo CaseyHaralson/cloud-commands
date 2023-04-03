@@ -128,3 +128,76 @@ Expose a deployment:
 ```
 kubectl expose deployment [deployment-name] --type=LoadBalancer --port=[port]
 ```
+
+## Namespaces
+
+List the namespaces or get a list of some resource by namespace:
+
+```
+kubectl get namespace
+
+kubectl get pods --namespace=[namespace]
+kubectl get services --namespace=[namespace]
+```
+
+Create a new namespace:
+
+```
+kubectl create namespace [namespace]
+```
+
+Set the context namespace so you don't need to specify it in commands or set it back to default:
+
+```
+kubectl config set-context --current --namespace=[namespace]
+
+kubectl config set-context --current --namespace=default
+```
+
+### RBAC
+
+After giving the IAM role `roles/container.clusterViewer` to a principal, their access can be controlled by Kubernetes RBAC.
+
+Kubernetes roles can be created with commands, but will most likely be created in configuration files and limited to namespaces:
+
+```
+kubectl create role [role-name] \
+--resource=[resource] \
+--verb=[verb1] --verb=[verb2]
+
+kubectl create role pod-reader \
+--resource=pods \
+--verb=watch --verb=get --verb=list
+```
+
+Bind a role to a user:
+
+```
+kubectl create rolebinding [rolebinding-name] \
+--role=[role-name] \
+--user=[user]
+```
+
+### Quotas
+
+List the quotas or describe a quota for a certain namespace:
+
+```
+kubectl get quota --namespace=[namespace]
+
+kubectl describe quota [quota-name] --namespace=[namespace]
+```
+
+Create a quota for a namespace:
+
+```
+kubectl create quota [quota-name] \
+--hard=count/[type1]=[num1],count/[type2]=[num2] \
+--namespace=[namespace]
+```
+
+Open an editor (vim) and edit a quota for a namespace:
+
+```
+kubectl edit quota [quota-name] --namespace=[namespace]
+```

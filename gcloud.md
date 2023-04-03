@@ -578,6 +578,14 @@ gsutil cp gs://[bucket-name]/[file] .
 gsutil cp -r gs://[bucket-name]/[folder] .
 ```
 
+Copy a source to a destination without overwriting (-n) and/or with multi-threading (-m):
+
+```
+gsutil cp -n [source] [destination]
+
+gsutil -m cp [source] [destination]
+```
+
 Make a file publicly accessible or remove public access through an ACL:
 
 ```
