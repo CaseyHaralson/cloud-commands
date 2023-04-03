@@ -274,3 +274,52 @@ git tag -d [tag]
 git push --delete [tag]
 git push [remote-short-name] --delete [tag]
 ```
+
+## Branches
+
+Checkout a branch:
+
+```
+git checkout [branch]
+git switch [branch]
+```
+
+Create a branch and check it out, or just create a branch:
+
+```
+git checkout -b [branch]
+git switch -c [branch]
+
+git branch [branch]
+```
+
+### Stash
+
+When you want to switch to a different branch, you probably want a clean workspace before you switch. If you have any current changes, you can save them into a stash, and then reapply them when you switch back to the correct branch. You can also apply stashes to a different branch if you want.
+
+List the stored stashes:
+
+```
+git stash list
+```
+
+Stash the current changes and clean the workspace (-u sashes untracked files):
+
+```
+git stash push -m "[message]"
+git stash push -u -m "[message]"
+```
+
+Apply a stash to the current branch by stash index (by using `git stash list`) or apply the stash and delete it at the same time:
+
+```
+git stash apply [index]
+
+git stash pop --index [index]
+```
+
+Delete a stash by stash index:
+
+```
+git stash drop [index]
+```
