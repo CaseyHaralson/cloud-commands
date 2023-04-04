@@ -86,6 +86,80 @@ kubectl rollout history deployment/[deployment-name]
 kubectl get pods -o jsonpath --template='{range .items[*]}{.metadata.name}{"\t"}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
 ```
 
+### Autoscaling
+
+#### Horizontal Pod
+
+View the status of the horizontal pod autoscaler:
+
+```
+kubectl get hpa
+```
+
+Apply horizontal pod autoscaling to a deployment:
+
+```
+kubectl autoscale deployment [deployment-name] \
+--cpu-percent=[cpu-percent] \
+--min=[min] \
+--max=[max]
+```
+
+#### Vertical Pod
+
+View the status of the vertical pod autoscaler:
+
+```
+kubectl get vpa
+```
+
+#### Kube-System Pod Disruption Budgets
+
+Create pod disruption budgets for the kube-system pods:
+
+```
+kubectl create poddisruptionbudget kube-dns-pdb \
+--namespace=kube-system \
+--selector=k8s-app=kube-dns \
+--max-unavailable 1
+kubectl create poddisruptionbudget prometheus-pdb \
+--namespace=kube-system \
+--selector=k8s-app=prometheus-to-sd \
+--max-unavailable 1
+kubectl create poddisruptionbudget kube-proxy-pdb \
+--namespace=kube-system \
+--selector=component=kube-proxy \
+--max-unavailable 1
+kubectl create poddisruptionbudget metrics-agent-pdb \
+--namespace=kube-system \
+--selector=k8s-app=gke-metrics-agent \
+--max-unavailable 1
+kubectl create poddisruptionbudget metrics-server-pdb \
+--namespace=kube-system
+--selector=k8s-app=metrics-server \
+--max-unavailable 1
+kubectl create poddisruptionbudget fluentd-pdb \
+--namespace=kube-system \
+--selector=k8s-app=fluentd-gke \
+--max-unavailable 1
+kubectl create poddisruptionbudget backend-pdb \
+--namespace=kube-system \
+--selector=k8s-app=glbc \
+--max-unavailable 1
+kubectl create poddisruptionbudget kube-dns-autoscaler-pdb \
+--namespace=kube-system \
+--selector=k8s-app=kube-dns-autoscaler \
+--max-unavailable 1
+kubectl create poddisruptionbudget stackdriver-pdb \
+--namespace=kube-system \
+--selector=app=stackdriver-metadata-agent \
+--max-unavailable 1
+kubectl create poddisruptionbudget event-pdb \
+--namespace=kube-system \
+--selector=k8s-app=event-exporter \
+--max-unavailable 1
+```
+
 ## Pods
 
 List the pods or get more information about a pod:
@@ -94,6 +168,8 @@ List the pods or get more information about a pod:
 kubectl get pods
 kubectl get pods [pod-name]
 kubectl get pods -l "[label1,label2]"
+
+kubectl get pods --output wide
 
 kubectl describe pods [pod-name]
 ```
@@ -109,6 +185,8 @@ curl http://127.0.0.1:[machine-port]
 Connect to an interactive shell in a pod:
 
 ```
+kubectl exec -it [pod-name] -- sh
+
 kubectl exec [pod-name] --stdin --tty -c [container-name] -- /bin/sh
 ```
 

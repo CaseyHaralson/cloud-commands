@@ -293,6 +293,12 @@ git switch -c [branch]
 git branch [branch]
 ```
 
+Delete a branch:
+
+```
+git branch -d [branch]
+```
+
 ### Stash
 
 When you want to switch to a different branch, you probably want a clean workspace before you switch. If you have any current changes, you can save them into a stash, and then reapply them when you switch back to the correct branch. You can also apply stashes to a different branch if you want.
@@ -322,4 +328,55 @@ Delete a stash by stash index:
 
 ```
 git stash drop [index]
+```
+
+## Merging
+
+First, check out the branch you want to merge into: `git checkout [branch]`
+
+Second, don't forget to sync your changes after handling the merge: [Sync Changes](#sync-changes)
+
+Merge changes from another branch:
+
+```
+git merge [changes-branch]
+```
+
+### Conflicts
+
+If you end up with conflicts, the conflicted files will have annotations inside the file to indicate what needs to be handled:
+
+```
+<<<<<<< HEAD:[file]
+conflicting changes from your branch
+=======
+conflicting changes from the changes-branch
+>>>>>>> [changes-branch]:[file]
+```
+
+You will need to:
+
+1. open the conflicted files
+2. look for the annotations
+3. fix the conflicts
+4. remove the annotations
+5. save the files
+6. mark each file as resolved: `git add [file]`
+
+Check the repo status to find any files with conflicts:
+
+```
+git status
+```
+
+You can also use a merge tool to help with conflicts:
+
+```
+git mergetool
+```
+
+After all of the conflicted files are resolved, commit and update the message if necessary (the merge and conflict message will display for editing) to end the merge:
+
+```
+git commit
 ```

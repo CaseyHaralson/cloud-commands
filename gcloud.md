@@ -547,6 +547,66 @@ Delete a cluster:
 gcloud container clusters delete [cluster-name]
 ```
 
+### Node Pool
+
+Create a node pool:
+
+```
+gcloud container node-pools create [node-pool-name] \
+--cluster=[cluster-name] \
+--machine-type=[type] \
+--num-nodes=[num] \
+--zone=[zone]
+```
+
+Change a node pool's size:
+
+```
+gcloud container clusters resize [cluster-name] \
+--node-pool=[node-pool-name] \
+--num-nodes=[num] \
+--zone=[zone]
+```
+
+Delete a node pool:
+
+```
+gcloud container node-pools delete [node-pool-name] \
+--cluster=[cluster-name] \
+--zone=[zone]
+```
+
+### Autoscaling and Autoprovisioning
+
+Create a cluster with vertical pod autoscaling enabled:
+
+```
+gcloud container clusters create [cluster-name] \
+--num-nodes=[num] \
+--enable-vertical-pod-autoscaling
+```
+
+Update a cluster and add cluster autoscaling:
+
+```
+gcloud beta container clusters update [cluster-name] \
+--enable-autoscaling \
+--min-nodes=[min] \
+--max-nodes=[max] \
+--autoscaling-profile=[balanced/optimize-utilization]
+```
+
+Update a cluster and add autoprovisioning:
+
+```
+gcloud container clusters update [cluster-name] \
+--enable-autoprovisioning \
+--min-cpu=[min-cpu] \
+--min-memory=[min-memory] \
+--max-cpu=[max-cpu] \
+--max-memory=[max-memory]
+```
+
 ## Storage
 
 gsutil command reference: https://cloud.google.com/storage/docs/gsutil
