@@ -256,14 +256,10 @@ git tag [tag]
 git tag [tag] [commit-id]
 ```
 
-Push a tag or all local tags to a remote:
+Push a tag:
 
 ```
-git push [tag]
 git push [remote-short-name] [tag]
-
-git push --tags
-git push [remote-short-name] --tags
 ```
 
 Delete a tag locally or from a remote:
@@ -271,11 +267,18 @@ Delete a tag locally or from a remote:
 ```
 git tag -d [tag]
 
-git push --delete [tag]
 git push [remote-short-name] --delete [tag]
 ```
 
 ## Branches
+
+View your local branches, remote branches, or all branches:
+
+```
+git branch -v
+git branch -v -r
+git branch -v -a
+```
 
 Checkout a branch:
 

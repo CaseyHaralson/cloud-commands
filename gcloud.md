@@ -523,6 +523,9 @@ kubernetes command reference: [kubectl.md](./kubectl.md)
 
 Create a cluster:
 
+- enable-ip-alias = allows for container native load balancing (instead of having to use iptables inside the nodes)
+- release-channel = how fast new Kubernetes versions are available (the default is regular)
+
 ```
 gcloud container clusters create [cluster-name] --machine-type=[type] --zone=[zone]
 gcloud container clusters create [cluster-name] --machine-type=[type] --region=[region]
@@ -532,7 +535,9 @@ gcloud container clusters create [cluster-name] \
 --zone=[zone] \
 --num-nodes=[num] \
 --network=[network] \
---subnetwork=[subnetwork]
+--subnetwork=[subnetwork] \
+--enable-ip-alias \
+--release-channel=[rapid/regular/stable]
 ```
 
 Get the cluster authentication credentials:
