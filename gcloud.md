@@ -573,6 +573,14 @@ gcloud container clusters resize [cluster-name] \
 --zone=[zone]
 ```
 
+Cordon and drain a node pool:
+
+```
+for node in $(kubectl get nodes -l cloud.google.com/gke-nodepool=[node-pool-name] -o=name); do
+  kubectl drain --force --ignore-daemonsets --grace-period=10 "$node";
+done
+```
+
 Delete a node pool:
 
 ```
@@ -588,16 +596,21 @@ Create a cluster with vertical pod autoscaling enabled:
 ```
 gcloud container clusters create [cluster-name] \
 --num-nodes=[num] \
+--zone=[zone] \
 --enable-vertical-pod-autoscaling
 ```
 
-Update a cluster and add cluster autoscaling:
+Update a cluster to add cluster autoscaling or change the autoscaling profile (seems like the profile has to be set in a different step):
 
 ```
 gcloud beta container clusters update [cluster-name] \
 --enable-autoscaling \
 --min-nodes=[min] \
 --max-nodes=[max] \
+--zone=[zone]
+
+gcloud beta container clusters update [cluster-name] \
+--zone=[zone] \
 --autoscaling-profile=[balanced/optimize-utilization]
 ```
 

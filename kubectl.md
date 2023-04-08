@@ -115,6 +115,20 @@ kubectl get vpa
 
 #### Kube-System Pod Disruption Budgets
 
+Create a pod disruption budget with either max-unavailable or min-available:
+
+```
+kubectl create poddisruptionbudget [pdb-name] \
+--namespace=[namespace] \
+--selector=[selector-key=selector-value] \
+--max-unavailable=[num or num%]
+
+kubectl create poddisruptionbudget [pdb-name] \
+--namespace=[namespace] \
+--selector=[selector-key=selector-value] \
+--min-available=[num or num%]
+```
+
 Create pod disruption budgets for the kube-system pods:
 
 ```
@@ -204,7 +218,10 @@ kubectl describe services [service-name]
 Expose a deployment:
 
 ```
-kubectl expose deployment [deployment-name] --type=LoadBalancer --port=[port]
+kubectl expose deployment [deployment-name] \
+--type=LoadBalancer \
+--port=[exposed-port] \
+--target-port=[container-port]
 ```
 
 ## Namespaces
