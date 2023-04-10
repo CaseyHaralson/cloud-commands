@@ -2,12 +2,35 @@
 
 ## Basic
 
+### Manual
+
+See the manual for a command (can use vim commands to navigate and search):
+
+```
+man [command]
+```
+
+To search all commands for some text:
+
+1. Run the following: `man -K "[text-to-find]"`
+2. Use `/text-to-find` and other vim commands to search the opened man page
+3. Quit the current page: `q`
+4. Keep going to the next man pages if available
+
 ### Piping Commands
 
 Control the amount of text from a command:
 
 ```
 [command] | less
+```
+
+### History
+
+View the last commands that have been run:
+
+```
+history
 ```
 
 ### Files and Directories
@@ -124,7 +147,114 @@ find [directory] -name [pattern]
 find [directory] -name *.txt
 ```
 
+### File Permissions and Ownership
+
+View the current permissions for files in the current directory:
+
+- r = read, w = write, x = execute
+- first group of three permissions are for the user/owner, then the group, then "others"
+
+```
+ls -l
+ls -l [file]
+```
+
+Change the permissions on a file:
+
+- r = read, w = write, x = execute
+- u = owner, g = group, o = others, a = all
+- \+ = add, - = remove, = = override current with new
+- -R = recursive
+- can use bits:
+  - 0 : 000 = no permissions
+  - 1 : 001 = execute
+  - 2 : 010 = write
+  - 4 : 100 = read
+  - 7 : 111 = read, write, execute
+
+```
+chmod [permission-change] [file]
+
+chmod a+w [file]
+chmod o-x [file]
+chmod u=rw,go=r [file]
+
+chmod -R o-r [file pattern]
+
+chmod 664 [file]
+```
+
+Change the owner, or group of a file:
+
+```
+chown [new-owner] [file]
+
+chown :[new-group] [file]
+
+chown [new-owner]:[new-group] [file]
+```
+
+### Processes
+
+List the current processes:
+
+```
+ps axu
+ps axu --sort -%cpu
+ps axu --sort -%mem
+```
+
+Get real-time information about processes and their resource usage:
+
+```
+top
+```
+
+Request a process to stop, or force it to stop and loose all unsaved progress:
+
+```
+kill [pid]
+
+kill SIGKILL [pid]
+```
+
+## Alias
+
+View the list of configured command aliases:
+
+```
+alias
+```
+
+Create an command alias:
+
+```
+alias [name]="[command]"
+```
+
+Remove a configured alias:
+
+```
+unalias [name]
+```
+
+## Ping
+
+Ping an IP or a domain to check connectivity and latency:
+
+```
+ping -c [num-requests] [ip-or-domain]
+```
+
 ## Tar - Archive Files
+
+Create (c) a compressed (z) tar file from a directory or from files:
+
+```
+tar -cvzf [compressed-file-name].tar.gz [directory]
+
+tar -cvzf [compressed-file-name].tar.gz [file1] [file2]
+```
 
 Extract (x) a compressed (z) tar file:
 
@@ -132,10 +262,12 @@ Extract (x) a compressed (z) tar file:
 tar -xvzf [file]
 ```
 
-Create (c) a compressed (z) tar file from a folder:
+## Uname - Basic System Info
+
+To get the basic information about a system:
 
 ```
-tar -cvzf [compressed-file-name].tar.gz [folder]
+uname -a
 ```
 
 ## Watch
@@ -144,4 +276,68 @@ Run a command with some frequency and watch the output:
 
 ```
 watch -n [seconds] [command]
+```
+
+## Wget - Download Files
+
+Note: wget also has a simple spider mode.
+
+Download a file:
+
+```
+wget [url]
+wget -O [new-file-name] [url]
+```
+
+Download all of the files from urls listed in a file:
+
+```
+wget -i [source-file]
+```
+
+Set the retry attempts:
+
+```
+wget -t [num] [url]
+```
+
+### Big Files
+
+Download a file in the background or limit the download rate:
+
+```
+wget -b [url]
+
+wget --limit-rate=[rate] [url]
+wget --limit-rate=500k [url]
+```
+
+Check on the progress of a file being downloaded in the background:
+
+```
+tail -f wget-log
+```
+
+Continue downloading an interrupted file:
+
+```
+wget -c [url]
+```
+
+## Zip
+
+Note: by default, you will probably want to create compressed files with "tar" on linux.
+
+Zip a file or directory:
+
+```
+zip [zip-file] [directory]
+
+zip [zip-file] [file1] [file2]
+```
+
+To unzip a file to the current directory:
+
+```
+unzip [zip-file]
 ```
