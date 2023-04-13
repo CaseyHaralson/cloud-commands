@@ -57,12 +57,12 @@ cd ..
 cd ~
 ```
 
-Make a file or directory:
+Make a file or directory (and any parent directories if they don't exist):
 
 ```
 touch [file]
 
-mkdir [directory]
+mkdir -p [directory]
 ```
 
 Copy a file or directory:

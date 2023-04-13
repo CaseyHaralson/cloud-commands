@@ -280,6 +280,16 @@ git branch -v -r
 git branch -v -a
 ```
 
+View the branches that have or haven't been merged into a branch (your current branch by default):
+
+```
+git branch --merged
+git branch --no-merged
+
+git branch --merged [branch]
+git branch --no-merged [branch]
+```
+
 Checkout a branch:
 
 ```
@@ -300,6 +310,16 @@ Delete a branch:
 
 ```
 git branch -d [branch]
+```
+
+Change a branch name, push the branch to remote, and delete the old branch (**WARNING**: don't do this if the branch is in use by other collaborators) (**WARNING**: don't do this for the main branch - research how to do that if needed):
+
+```
+git branch --move [old-branch-name] [new-branch-name]
+
+git push --set-upstream [remote-short-name] [new-branch-name]
+
+git push [remote-short-name] --delete [old-branch-name]
 ```
 
 ### Stash
