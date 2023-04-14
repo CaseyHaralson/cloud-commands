@@ -151,6 +151,7 @@ Get the most recent data from a remote:
 ```
 git fetch
 git fetch [remote-short-name]
+git fetch --all
 ```
 
 View current information about a remote like the url, branches, and sync status:
@@ -158,6 +159,8 @@ View current information about a remote like the url, branches, and sync status:
 ```
 git remote show [remote-short-name]
 ```
+
+Before pushing your changes to a remote, you might need to [Merge Changes](#merging)
 
 Push changes to a remote:
 
@@ -275,9 +278,15 @@ git push [remote-short-name] --delete [tag]
 View your local branches, remote branches, or all branches:
 
 ```
-git branch -v
+git branch -vv
 git branch -v -r
-git branch -v -a
+git branch -vv -a
+```
+
+Get the status of your local and remote branches for a remote origin:
+
+```
+git remote show [remote-short-name]
 ```
 
 View the branches that have or haven't been merged into a branch (your current branch by default):
@@ -295,6 +304,9 @@ Checkout a branch:
 ```
 git checkout [branch]
 git switch [branch]
+
+git checkout [local-branch] [remote-short-name]/[remote-branch]
+git switch [local-branch] [remote-short-name]/[remote-branch]
 ```
 
 Create a branch and check it out, or just create a branch:
@@ -306,10 +318,12 @@ git switch -c [branch]
 git branch [branch]
 ```
 
-Delete a branch:
+Delete a local branch or a remote branch:
 
 ```
 git branch -d [branch]
+
+git push origin --delete [branch]
 ```
 
 Change a branch name, push the branch to remote, and delete the old branch (**WARNING**: don't do this if the branch is in use by other collaborators) (**WARNING**: don't do this for the main branch - research how to do that if needed):
@@ -363,6 +377,7 @@ Merge changes from another branch:
 
 ```
 git merge [changes-branch]
+git merge [remote-short-name]/[changes-branch]
 ```
 
 ### Conflicts
