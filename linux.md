@@ -238,12 +238,58 @@ Remove a configured alias:
 unalias [name]
 ```
 
+## Envsubst - File Environment Variable Substitutions
+
+First, set up an environment variable like: `export FRUIT=apples`
+
+Second, have a file that has content that references the variable like: `My favorite fruits are $FRUIT.`
+
+Replace the variables in the file with their current values:
+
+```
+envsubst < [file]
+envsubst < [input-file] > [output-file]
+```
+
+## Jq - Pretty Json Text
+
+Prettify a json string:
+
+```
+[json-text] | jq
+```
+
+Only output a part of the json object:
+
+```
+[json-text] | jq '.[object-property].[child-property]'
+
+echo '{"fruit":{"name":"apple","color":"green","price":1.20}}' | jq '.fruit'
+echo '{"fruit":{"name":"apple","color":"green","price":1.20}}' | jq '.fruit.name'
+```
+
+Select a particular object from an array:
+
+```
+[json-text] | jq '.[index]'
+
+echo '["x","y","z"]' | jq '.[1]'
+```
+
 ## Ping
 
 Ping an IP or a domain to check connectivity and latency:
 
 ```
 ping -c [num-requests] [ip-or-domain]
+```
+
+## Sed - Replace Text In Files
+
+Replace all instances of a word with another word:
+
+```
+sed 's/[word-to-replace]/[new-word]/g' [file]
 ```
 
 ## Tar - Archive Files
