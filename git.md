@@ -2,7 +2,7 @@
 
 Command reference: https://git-scm.com/docs
 
-Book: https://git-scm.com/book/en/v2
+Pro Git Book: https://git-scm.com/book/en/v2
 
 Example gitignore files: https://github.com/github/gitignore
 
@@ -146,12 +146,14 @@ git commit --amend -m "[message]"
 
 ### Sync Changes
 
-Get the most recent data from a remote:
+Get the most recent data from a remote (doesn't pull changes in to your branches, just gets the history):
 
 ```
 git fetch
 git fetch [remote-short-name]
 git fetch --all
+
+git remote update
 ```
 
 View current information about a remote like the url, branches, and sync status:
@@ -160,7 +162,7 @@ View current information about a remote like the url, branches, and sync status:
 git remote show [remote-short-name]
 ```
 
-Before pushing your changes to a remote, you might need to [Merge Changes](#merging)
+Before pushing your changes to a remote, you might need to [Merge Changes](#merging) or [Rebase](#rebasing)
 
 Push changes to a remote:
 
@@ -281,6 +283,12 @@ View your local branches, remote branches, or all branches:
 git branch -vv
 git branch -v -r
 git branch -vv -a
+```
+
+Get the most recent data from your remotes:
+
+```
+git remote update
 ```
 
 Get the status of your local and remote branches for a remote origin:
@@ -417,4 +425,18 @@ After all of the conflicted files are resolved, commit and update the message if
 
 ```
 git commit
+```
+
+## Rebasing
+
+**WARNING**: don't rebase a branch that other people are working on or may have based their work on! It is best to NOT rebase if you have already pushed your changes somewhere. The _Pro Git_ book has this to say:
+
+> If you follow that guideline, you’ll be fine. If you don’t, people will hate you, and you’ll be scorned by friends and family.
+
+First, check out the branch you want to merge into: `git checkout [branch]`
+
+Rebase on to changes from another branch:
+
+```
+git rebase [changes-branch]
 ```
