@@ -109,7 +109,7 @@ tail -n [num-lines] [file]
 tail -f [file]
 ```
 
-Search for text in a file:
+Search for text in a file or in files in a folder:
 
 - -i = case insensitive search
 - -w = full word search only
@@ -117,6 +117,8 @@ Search for text in a file:
 
 ```
 grep [pattern] [file]
+
+grep -nri "[some string]" [folder]
 ```
 
 Compare the differences between two files:

@@ -641,11 +641,14 @@ List the contents of a bucket:
 gsutil ls gs://[bucket-name]
 ```
 
-Copy a file to a bucket:
+Copy a file or folder to a bucket:
 
 ```
 gsutil cp [file] gs://[bucket-name]
 gsutil cp [file] gs://[bucket-name]/[folder]
+
+gsutil -m cp -r [folder] gs://[bucket-name]
+gsutil -m cp -r [folder] gs://[bucket-name]/[folder]
 ```
 
 Download a file or directory from a bucket:
@@ -653,7 +656,7 @@ Download a file or directory from a bucket:
 ```
 gsutil cp gs://[bucket-name]/[file] .
 
-gsutil cp -r gs://[bucket-name]/[folder] .
+gsutil -m cp -r gs://[bucket-name]/[folder] .
 ```
 
 Copy a source to a destination without overwriting (-n) and/or with multi-threading (-m):
@@ -664,18 +667,26 @@ gsutil cp -n [source] [destination]
 gsutil -m cp [source] [destination]
 ```
 
+Remove a file from a bucket:
+
+```
+gsutil rm gs://[bucket-name]/[file]
+```
+
+To synchronize a source and destination (either two buckets or a local destination and a bucket) without deleting any missing files, or with deleting missing files (-d):
+
+```
+gsutil -m rsync -r [source] [destination]
+
+gsutil -m rsync -d -r [source] [destination]
+```
+
 Make a file publicly accessible or remove public access through an ACL:
 
 ```
 gsutil acl ch -u AllUsers:R gs://[bucket-name]/[file]
 
 gsutil acl ch -d AllUsers gs://[bucket-name]/[file]
-```
-
-Remove a file from a bucket:
-
-```
-gsutil rm gs://[bucket-name]/[file]
 ```
 
 ## Functions

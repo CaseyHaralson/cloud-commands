@@ -17,6 +17,8 @@ kubectl logs -f [pod-name]
 kubectl explain deployment
 kubectl explain deployment.metadata.name
 kubectl explain deployment --recursive
+
+kubectl get all
 ```
 
 ## Yaml Config Files
