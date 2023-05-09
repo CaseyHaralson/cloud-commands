@@ -171,6 +171,11 @@ git push
 git push [remote-short-name] [branch]
 ```
 
+Push a new branch to a remote and set up remote tracking:
+```
+git push -u [remote-short-name] [branch]
+```
+
 ## History
 
 View the history of the current branch including and excluding merge commits:
