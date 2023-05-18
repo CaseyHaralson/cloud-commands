@@ -24,6 +24,12 @@ Build the current directory's Dockerfile into an image:
 docker build -t [image-name]:[version] .
 ```
 
+Build the current directory but with a Dockerfile specified in another directory:
+
+```
+docker build -f [Dockerfile-path] -t [image-name]:[version] .
+```
+
 Remove an image or remove all images:
 
 ```
