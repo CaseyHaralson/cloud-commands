@@ -379,7 +379,7 @@ Note: by default, you will probably want to create compressed files with "tar" o
 Zip a file or directory:
 
 ```
-zip [zip-file] [directory]
+zip -r [zip-file] [directory]
 
 zip [zip-file] [file1] [file2]
 ```
