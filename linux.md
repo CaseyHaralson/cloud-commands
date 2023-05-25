@@ -292,11 +292,12 @@ Replace all instances of a word with another word:
 - the "s" picks the delimiter
 - the "e" allows for multiple replacements
 - the "g" means global replacement
+- "-i" will edit the file in place instead of printing the changes to the console
 
 ```
 sed 's/[word-to-replace]/[new-word]/g' [file]
 
-sed -e 's#[word-to-replace]#[new-word]#g' -e 's?[replace]?[new]?g' [file]
+sed -i -e 's#[word-to-replace]#[new-word]#g' -e 's?[replace]?[new]?g' [file]
 ```
 
 ## Tar - Archive Files
