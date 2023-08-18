@@ -220,6 +220,30 @@ kill [pid]
 kill SIGKILL [pid]
 ```
 
+## Advanced
+
+### Install sudo And Add User To Group
+
+Switch to the root user fully ("-" switches fully instead of just simulating the user with original path and home):
+
+```
+su -
+```
+
+Install sudo:
+
+```
+apt install sudo
+```
+
+Add user to sudo group:
+
+```
+usermod -aG sudo [username]
+```
+
+Logout and re-login.
+
 ## Alias
 
 View the list of configured command aliases:
@@ -289,6 +313,7 @@ ping -c [num-requests] [ip-or-domain]
 ## Sed - Replace Text In Files
 
 Replace all instances of a word with another word:
+
 - the "s" picks the delimiter
 - the "e" allows for multiple replacements
 - the "g" means global replacement
