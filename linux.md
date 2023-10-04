@@ -65,12 +65,14 @@ touch [file]
 mkdir -p [directory]
 ```
 
-Copy a file or directory:
+Copy a file, directory, or files in a directory:
 
 ```
 cp [file-path] [new-file-path]
 
 cp -r [directory] [new-directory]
+
+cp -r [directory]/. [new-directory]/
 ```
 
 Move a file or directory:
