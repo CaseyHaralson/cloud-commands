@@ -28,6 +28,7 @@ Built-in Data Structures, Functions, and Files: https://wesmckinney.com/book/pyt
 
 [Numpy Notebook](./numpy.ipynb)
 
+Book Links:
 - [Creation Functions](https://wesmckinney.com/book/numpy-basics#tbl-table_array_ctor)
 - [Data Types](https://wesmckinney.com/book/numpy-basics#tbl-table_array_dtypes)
 - [Fast Element-Wise Functions](https://wesmckinney.com/book/numpy-basics#tbl-table_unary_ufuncs)
@@ -35,4 +36,13 @@ Built-in Data Structures, Functions, and Files: https://wesmckinney.com/book/pyt
 - [Stat Functions](https://wesmckinney.com/book/numpy-basics#tbl-table_statistical_methods)
 - [Linear Algebra Functions](https://wesmckinney.com/book/numpy-basics#tbl-table_numpy_linalg)
 
+## Pandas
 
+[Pandas Notebook](./pandas.ipynb)
+
+Book Links:
+- [Series](https://wesmckinney.com/book/pandas-basics#pandas_series)
+- [Index Functions](https://wesmckinney.com/book/pandas-basics#tbl-table_index_methods)
+- [DataFrame](https://wesmckinney.com/book/pandas-basics#pandas_dataframe)
+- [DataFrame Constructors](https://wesmckinney.com/book/pandas-basics#tbl-table_dataframe_constructor)
+- 
