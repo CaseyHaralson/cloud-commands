@@ -71,3 +71,14 @@ Book Links:
 - [Data Aggregation and Group Operations](https://wesmckinney.com/book/data-aggregation)
 - [Time Series](https://wesmckinney.com/book/time-series)
 
+## Matplotlib
+
+[Matplotlib Notebook](./matplotlib.ipynb)
+
+Matplotlib Examples and Documentation: https://matplotlib.org/stable/gallery/index.html
+
+Book Links:
+- [Figures and Subplots](https://wesmckinney.com/book/plotting-and-visualization#vis_matplotlib_figs_axes)
+- [Colors, Markers, and Line Styles](https://wesmckinney.com/book/plotting-and-visualization#vis_matplotlib_styles)
+- [Ticks, Labels, and Legends](https://wesmckinney.com/book/plotting-and-visualization#vis_matplotlib_annotation)
+- [Annotations](https://wesmckinney.com/book/plotting-and-visualization#vis_mpl_drawing)
