@@ -16,6 +16,8 @@ Built-in Data Structures, Functions, and Files: https://wesmckinney.com/book/pyt
 - [Generators](https://wesmckinney.com/book/python-builtin#generators)
 - [Exceptions and Error Handling](https://wesmckinney.com/book/python-builtin#control_exceptions)
 - [Reading and Writing Files](https://wesmckinney.com/book/python-builtin#files_os)
+- [String Functions](https://wesmckinney.com/book/data-cleaning#tbl-table_string_methods)
+- [Regular Expressions](https://wesmckinney.com/book/data-cleaning#text_string_manip_re)
 
 
 ## Jupyter Lab
@@ -45,4 +47,27 @@ Book Links:
 - [Index Functions](https://wesmckinney.com/book/pandas-basics#tbl-table_index_methods)
 - [DataFrame](https://wesmckinney.com/book/pandas-basics#pandas_dataframe)
 - [DataFrame Constructors](https://wesmckinney.com/book/pandas-basics#tbl-table_dataframe_constructor)
-- 
+- Pandas Essentials:
+  - [Reindexing](https://wesmckinney.com/book/pandas-basics#pandas_reindex)
+  - [Dropping Entries from an Axis](https://wesmckinney.com/book/pandas-basics#pandas_indexing_drop)
+  - [Indexing, Selection, and Filtering](https://wesmckinney.com/book/pandas-basics#pandas_basic_indexing)
+    - [Indexing Options](https://wesmckinney.com/book/pandas-basics#tbl-table_dataframe_loc_iloc)
+  - [Arithmetic Functions](https://wesmckinney.com/book/pandas-basics#tbl-table_flex_arith)
+  - [Function Application and Mapping](https://wesmckinney.com/book/pandas-basics#pandas_apply)
+  - [Sorting and Ranking](https://wesmckinney.com/book/pandas-basics#pandas_sorting)
+- [Summarization and Computing Statistics](https://wesmckinney.com/book/pandas-basics#pandas_summarize)
+  - [Summary Functions](https://wesmckinney.com/book/pandas-basics#tbl-table_descriptive_stats)
+- [Data Loading Functions](https://wesmckinney.com/book/accessing-data#tbl-table_parsing_functions)
+- Data Cleaning and Preparation:
+  - [Missing Data Functions](https://wesmckinney.com/book/data-cleaning#tbl-table_na_method)
+  - [Removing Duplicates](https://wesmckinney.com/book/data-cleaning#prep_clean_deduplicate)
+  - [Replacing Values](https://wesmckinney.com/book/data-cleaning#prep_replace)
+  - [Binning Data](https://wesmckinney.com/book/data-cleaning#prep_discretization)
+  - [Detecting and Filtering Outliers](https://wesmckinney.com/book/data-cleaning#prep_trim_filter)
+  - [String Functions in Pandas](https://wesmckinney.com/book/data-cleaning#tbl-table_vec_string)
+  - [Categorical Data](https://wesmckinney.com/book/data-cleaning#pandas-categorical)
+- [Combining and Merging Datasets](https://wesmckinney.com/book/data-wrangling#prep_merge_join)
+- [Reshaping and Pivoting](https://wesmckinney.com/book/data-wrangling#prep_reshape)
+- [Data Aggregation and Group Operations](https://wesmckinney.com/book/data-aggregation)
+- [Time Series](https://wesmckinney.com/book/time-series)
+
