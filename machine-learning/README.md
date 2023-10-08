@@ -70,6 +70,11 @@ Book Links:
 - [Reshaping and Pivoting](https://wesmckinney.com/book/data-wrangling#prep_reshape)
 - [Data Aggregation and Group Operations](https://wesmckinney.com/book/data-aggregation)
 - [Time Series](https://wesmckinney.com/book/time-series)
+- Plotting
+  - [Line Plots](https://wesmckinney.com/book/plotting-and-visualization#vis_pandas_line)
+  - [Bar Plots](https://wesmckinney.com/book/plotting-and-visualization#vis_pandas_barcharts)
+  - [Histograms and Density Plots](https://wesmckinney.com/book/plotting-and-visualization#vis_pandas_histogram)
+  - [Scatter and Point Plots](https://wesmckinney.com/book/plotting-and-visualization#vis_pandas_splom)
 
 ## Matplotlib
 
