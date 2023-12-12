@@ -51,6 +51,12 @@ gcloud projects list
 gcloud config set project [project-id]
 ```
 
+Find the region and zone where the Cloud Shell is running:
+
+```
+curl -H "Metadata-Flavor: Google" metadata/computeMetadata/v1/instance/zone
+```
+
 ## Variables
 
 Set and use a linux variable:

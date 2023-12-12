@@ -42,6 +42,8 @@ Book Links:
 
 [Pandas Notebook](./pandas.ipynb)
 
+[Practical Deep Learning - Pandas Notebook](https://wesmckinney.com/book/plotting-and-visualization#vis_pandas_splom)
+
 Book Links:
 - [Series](https://wesmckinney.com/book/pandas-basics#pandas_series)
 - [Index Functions](https://wesmckinney.com/book/pandas-basics#tbl-table_index_methods)
