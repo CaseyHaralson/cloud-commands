@@ -280,6 +280,15 @@ git tag -d [tag]
 git push [remote-short-name] --delete [tag]
 ```
 
+Move an existing tag to the current commit (add -a to annotate the tag) and then push the tag to the remote:
+
+```
+git tag -f [tag]
+git tag -f -a [tag] -m "[message]"
+
+git push -f [remote-short-name] [tag]
+```
+
 ## Branches
 
 View your local branches, remote branches, or all branches:
