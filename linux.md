@@ -75,7 +75,7 @@ cp -r [directory] [new-directory]
 cp -r [directory]/. [new-directory]/
 ```
 
-Move a file or directory:
+Move a file or directory (also used for renaming a directory):
 
 ```
 mv [old] [new]
