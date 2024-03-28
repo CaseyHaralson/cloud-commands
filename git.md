@@ -128,6 +128,16 @@ git restore .
 git restore [blob]
 ```
 
+Remove untracked files (**WARNING**: completely removes these files from your local):
+
+- a "-n" will show a dry run
+- a "-f" will force the untracked files to be removed
+
+```
+git clean -n
+git clean -f
+```
+
 ### Commit Changes
 
 Commit the staged changes:
