@@ -20,6 +20,10 @@
 
 [Linux commands](./linux.md)
 
+## Mongo
+
+[Mongosh commands](./mongo.md)
+
 ## Terraform
 
 [Terraform commands](./terraform.md)
