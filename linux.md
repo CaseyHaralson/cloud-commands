@@ -343,6 +343,80 @@ Extract (x) a compressed (z) tar file:
 tar -xvzf [file]
 ```
 
+## Tmux
+
+Tmux lets you manage multiple terminal sessions from a single screen.
+
+- **Session** - A top-level container. Multiple sessions can run independently.
+- **Window** - Like a tab in a browser. Each session can have multiple windows, and each window takes up the full terminal screen.
+- **Pane** - A split within a single window. One window can be divided into multiple panes to see several terminals at once.
+
+Hierarchy: Session > Windows > Panes
+
+### Sessions
+
+Start a new session:
+
+```
+tmux
+
+tmux new -s [name]
+```
+
+List sessions:
+
+```
+tmux ls
+```
+
+Attach to a session:
+
+```
+tmux attach -t [name]
+
+tmux a
+```
+
+Detach from a session: `Ctrl+b d`
+
+Kill a session:
+
+```
+tmux kill-session -t [name]
+```
+
+Rename a session: `Ctrl+b $`
+
+### Windows
+
+Create a new window: `Ctrl+b c`
+
+Switch between windows: `Ctrl+b n` (next), `Ctrl+b p` (previous), `Ctrl+b [number]`
+
+Rename a window: `Ctrl+b ,`
+
+Close a window: `Ctrl+b &` or `exit`
+
+List windows: `Ctrl+b w`
+
+### Panes
+
+Split horizontally: `Ctrl+b "`
+
+Split vertically: `Ctrl+b %`
+
+Switch between panes: `Ctrl+b [arrow key]`
+
+Close a pane: `Ctrl+b x` or `exit`
+
+Resize a pane: `Ctrl+b Ctrl+[arrow key]`
+
+Toggle pane zoom: `Ctrl+b z`
+
+### Other
+
+Scroll mode: `Ctrl+b [`, then `q` to exit
+
 ## Uname - Basic System Info
 
 To get the basic information about a system:
